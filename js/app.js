@@ -8,14 +8,19 @@ myApp.config(function ($routeProvider) {
         templateUrl: 'pages/main.html',
         controller: 'mainController'
     })  
-     .when('/second', {
+     .when('/viewclassfied', {
         templateUrl: 'pages/viewclassfied.html',
-        controller: 'secondController'
+        controller: 'viewclassfied'
     })
     
     .when('/viewclassfied/:num', {
         templateUrl: 'pages/viewclassfied.html',
-        controller: 'secondController'
+        controller: 'viewController'
+    })
+    
+     .when('/addclassified', {
+        templateUrl: 'pages/addclassified.html',
+        controller: 'addController'
     })
 
 });
@@ -29,15 +34,29 @@ myApp.controller('mainController', ['$scope', '$http', function ($scope,  $http)
         });
 }]);
 
-myApp.controller('secondController', ['$scope', '$log', '$routeParams', '$http', function($scope, $log, $routeParams,$http) {  
+myApp.controller('viewController', ['$scope', '$log', '$routeParams', '$http', function($scope, $log, $routeParams,$http) {  
     $http.get('http://127.0.0.1/VariousClassifiedWeb/api', {
     params: { id: $routeParams.num }
 }).success(function (result) {
-            $scope.classified = result;           
+            $scope.classified = result;            
         });
     
 }]);
 
+
+myApp.controller('addController', ['$scope', '$http', function ($scope,  $http) {   
+       $scope.ClassifiedTitle = '';
+        $scope.ClassifiedDescription = '';
+    $scope.addRule = function () {
+        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { ClassifiedTitle: $scope.ClassifiedTitle,ClassifiedDescription: $scope.ClassifiedDescription })
+            .success(function (result) {
+                $scope.classified = result;
+                 $scope.ClassifiedTitle = '';
+        $scope.ClassifiedDescription = '';
+
+            })
+    };
+}]);
   function chunk(arr, size) {
   var newArr = [];
   for (var i=0; i<arr.length; i+=size) {
@@ -45,3 +64,4 @@ myApp.controller('secondController', ['$scope', '$log', '$routeParams', '$http',
   }
   return newArr;
 }
+
