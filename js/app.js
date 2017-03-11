@@ -29,9 +29,12 @@ myApp.controller('mainController', ['$scope', '$http', function ($scope,  $http)
         });
 }]);
 
-myApp.controller('secondController', ['$scope', '$log', '$routeParams', function($scope, $log, $routeParams) {
-    
-    $scope.num = $routeParams.num || 1;
+myApp.controller('secondController', ['$scope', '$log', '$routeParams', '$http', function($scope, $log, $routeParams,$http) {  
+    $http.get('http://127.0.0.1/VariousClassifiedWeb/api', {
+    params: { id: $routeParams.num }
+}).success(function (result) {
+            $scope.classified = result;           
+        });
     
 }]);
 
