@@ -1,0 +1,23 @@
+<div class="row" ng-repeat="rows in chunkedData">
+  <div class="col-md-3 portfolio-item" ng-repeat="item in rows">
+      <div class="row">
+          <div class="row"><div class="col-md-0 col-sd-4"></div><div class="col-md-12 col-sd-8"><h4>{{item.ClassifiedTitle}}</h4></div></div>
+          <div class="row">
+             <div class="col-md-3">
+        <a href="#/second/{{item.ClassifiedID}}">    
+                    <img class="img-responsive " src="http://placehold.it/50x50" alt="">
+                </a>
+          
+         </div>
+           
+           <div class="col-md-9">
+               {{item.ClassifiedDescription}}
+         </div></div>
+  
+      </div>
+     
+                
+            </div>
+         
+   
+</div>

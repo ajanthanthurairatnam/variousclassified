@@ -1,20 +1,38 @@
-var myApp = angular.module('myApp', []);
+var myApp = angular.module('myApp', ['ngRoute']);
 
-myApp.controller('mainController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
+myApp.config(function ($routeProvider) {
+    
+    $routeProvider
+    
+    .when('/', {
+        templateUrl: 'pages/main.html',
+        controller: 'mainController'
+    })  
+     .when('/second', {
+        templateUrl: 'pages/second.html',
+        controller: 'secondController'
+    })
+    
+    .when('/second/:num', {
+        templateUrl: 'pages/second.html',
+        controller: 'secondController'
+    })
 
-    $scope.handle = '';
+});
 
-    $scope.lowercasehandle = function () {
-        return $filter('lowercase')($scope.handle);
-    };
-
-    $scope.characters = 5;
+myApp.controller('mainController', ['$scope', '$http', function ($scope,  $http) {   
     
   $http.get('http://127.0.0.1/VariousClassifiedWeb/api')
         .success(function (result) {
             $scope.classifieds = result;
             $scope.chunkedData = chunk(result, 4);
         });
+}]);
+
+myApp.controller('secondController', ['$scope', '$log', '$routeParams', function($scope, $log, $routeParams) {
+    
+    $scope.num = $routeParams.num || 1;
+    
 }]);
 
   function chunk(arr, size) {
