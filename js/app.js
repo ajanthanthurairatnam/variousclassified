@@ -20,7 +20,7 @@ myApp.config(function ($routeProvider) {
     
      .when('/addclassified', {
         templateUrl: 'pages/addclassified.html',
-        controller: 'addController'
+        controller: 'mainController'
     })
 
 });
@@ -32,6 +32,18 @@ myApp.controller('mainController', ['$scope', '$http', function ($scope,  $http)
             $scope.classifieds = result;
             $scope.chunkedData = chunk(result, 4);
         });
+        $scope.ClassifiedTitle = '';
+        $scope.ClassifiedDescription = '';
+     $scope.addRule = function () {
+        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { ClassifiedTitle: $scope.ClassifiedTitle,ClassifiedDescription: $scope.ClassifiedDescription })
+            .success(function (result) {
+             $scope.classifieds = result;
+            $scope.chunkedData = chunk(result, 4);               
+                 $scope.ClassifiedTitle = '';
+        $scope.ClassifiedDescription = '';
+
+            })
+    };
 }]);
 
 myApp.controller('viewController', ['$scope', '$log', '$routeParams', '$http', function($scope, $log, $routeParams,$http) {  
@@ -39,24 +51,10 @@ myApp.controller('viewController', ['$scope', '$log', '$routeParams', '$http', f
     params: { id: $routeParams.num }
 }).success(function (result) {
             $scope.classified = result;            
-        });
-    
+        });    
 }]);
 
 
-myApp.controller('addController', ['$scope', '$http', function ($scope,  $http) {   
-       $scope.ClassifiedTitle = '';
-        $scope.ClassifiedDescription = '';
-    $scope.addRule = function () {
-        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { ClassifiedTitle: $scope.ClassifiedTitle,ClassifiedDescription: $scope.ClassifiedDescription })
-            .success(function (result) {
-                $scope.classified = result;
-                 $scope.ClassifiedTitle = '';
-        $scope.ClassifiedDescription = '';
-
-            })
-    };
-}]);
   function chunk(arr, size) {
   var newArr = [];
   for (var i=0; i<arr.length; i+=size) {
