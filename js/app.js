@@ -9,12 +9,12 @@ myApp.config(function ($routeProvider) {
         controller: 'mainController'
     })  
      .when('/second', {
-        templateUrl: 'pages/second.html',
+        templateUrl: 'pages/viewclassfied.html',
         controller: 'secondController'
     })
     
-    .when('/second/:num', {
-        templateUrl: 'pages/second.html',
+    .when('/viewclassfied/:num', {
+        templateUrl: 'pages/viewclassfied.html',
         controller: 'secondController'
     })
 
