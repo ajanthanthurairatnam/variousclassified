@@ -15,3 +15,6 @@ body {
 footer {
     margin: 50px 0;
 }
+.centered-text {
+    text-align:center
+}   
