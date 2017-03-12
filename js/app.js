@@ -25,7 +25,7 @@ myApp.config(function ($routeProvider) {
 
 });
 
-myApp.controller('mainController', ['$scope', '$http', function ($scope,  $http) {   
+myApp.controller('mainController', ['$scope','$location', '$http', function ($scope,$location,  $http) {   
     
   $http.get('http://127.0.0.1/VariousClassifiedWeb/api')
         .success(function (result) {
@@ -37,10 +37,12 @@ myApp.controller('mainController', ['$scope', '$http', function ($scope,  $http)
      $scope.addRule = function () {
         $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { ClassifiedTitle: $scope.ClassifiedTitle,ClassifiedDescription: $scope.ClassifiedDescription })
             .success(function (result) {
-             $scope.classifieds = result;
-            $scope.chunkedData = chunk(result, 4);               
-                 $scope.ClassifiedTitle = '';
-        $scope.ClassifiedDescription = '';
+                  if ($http.pendingRequests.length > 0) {                   
+                } else {                    
+                      var landingUrl = '/';  
+                 $location.url(landingUrl);
+                }
+            
 
             })
     };
