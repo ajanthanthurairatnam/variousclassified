@@ -1,0 +1,19 @@
+
+<div class="row" ng-repeat="item in classified">
+     <div class="col-md-12">
+        
+     <div class="row"> <label>Classified</label>
+                    <input type="text" ng-model="item.ClassifiedTitle" />
+                </div>
+<div class="row"> <label>Description</label>
+                    <input type="text" ng-model="item.ClassifiedDescription" />
+                </div>
+<select ng-model="item.CategoryID">
+<option ng-repeat="x in Categories" value="{{x.ID}}">{{x.CategoryTitle}}</option>
+</select>
+<input type="checkbox" ng-model="item.CategoryID"  ng-model-options="{allowInvalid: true}"   />
+<input type="file"  accept="image/*" id="imgInp" onchange="angular.element(this).scope().showMyImage(this)" />
+<img id="img" ng-src="{{item.ClassfiedImage}}" alt="your image"  />
+<input type="text" ng-model="item.ClassfiedImage"  />
+<a class="btn btn-default" ng-click="addRule()">Add</a>
+</div>

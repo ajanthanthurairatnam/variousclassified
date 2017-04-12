@@ -7,6 +7,7 @@
 <select ng-model="CategoryID">
 <option ng-repeat="x in Categories" value="{{x.ID}}">{{x.CategoryTitle}}</option>
 </select>
+<input type="checkbox" ng-model="IsActive"  ng-model-options="{allowInvalid: true}"   />
 <input type="file"  accept="image/*" id="imgInp" onchange="angular.element(this).scope().showMyImage(this)" />
 <img id="img" src="#" alt="your image" />
 <input type="text" ng-model="CategoryImage"   />

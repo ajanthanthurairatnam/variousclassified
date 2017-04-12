@@ -21,6 +21,11 @@ myApp.config(function ($routeProvider) {
      .when('/addclassified', {
         templateUrl: 'pages/addclassified.html',
         controller: 'addController'
+    })    
+
+      .when('/editclass/:num', {
+        templateUrl: 'pages/editclassified.html',
+        controller: 'editController'
     })
 
 });
@@ -42,6 +47,66 @@ myApp.controller('viewController', ['$scope', '$log', '$routeParams', '$http', f
         });    
 }]);
 
+
+myApp.controller('editController', ['$scope', '$log', '$routeParams', '$http','$location', function($scope, $log, $routeParams,$http,$location) { 
+    $http.get('http://127.0.0.1/VariousClassifiedWeb/api/Categories')
+        .success(function (result) {
+            $scope.Categories = result;           
+        });
+    $http.get('http://127.0.0.1/VariousClassifiedWeb/api', {
+    params: { id: $routeParams.num }
+}).success(function (result) {
+            $scope.classified = result;            
+        });    
+        $scope.CategoryID=0;    
+     $scope.addRule = function () {
+        
+         if(angular.isUndefined($scope.IsActive))      
+             {
+                 $scope.IsActive=false;
+                 
+                  alert($scope.IsActive);
+             }        
+        
+          console.log($scope.classified[0].ClassifiedID);
+         
+        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { id: $scope.classified[0].ClassifiedID,ClassifiedTitle: $scope.classified[0].ClassifiedTitle,ClassifiedDescription: $scope.classified[0].ClassifiedDescription,CategoryID:$scope.classified[0].CategoryID,ClassifiedImage:$scope.classified[0].ClassfiedImage,IsActive:$scope.classified[0].IsActive})
+            .success(function (result) {
+                  if ($http.pendingRequests.length > 0) {                   
+                } else {                    
+                      var landingUrl = '/';  
+                 $location.url(landingUrl);
+                }
+            
+
+            })
+    };   
+    
+    $scope.showMyImage = function (fileInput) {
+        var files = fileInput.files;
+        for (var i = 0; i < files.length; i++) {           
+            var file = files[i];
+            var imageType = /image.*/;     
+            if (!file.type.match(imageType)) {
+                continue;
+            }           
+            var img=document.getElementById("img");            
+            img.file = file;    
+            var reader = new FileReader();
+            reader.onload = (function(aImg) { 
+                return function(e) {                                        
+                    aImg.src = e.target.result;                   
+         document.getElementById("img").value=e.target.result;
+                   $scope.CategoryImage=e.target.result;
+                     $scope.$digest();
+                }; 
+            })(img);
+            reader.readAsDataURL(file);
+        }    
+    };
+
+}]);
+
 myApp.controller('addController', ['$scope', '$http','$location', function ($scope,  $http,$location) {       
   $http.get('http://127.0.0.1/VariousClassifiedWeb/api/Categories')
         .success(function (result) {
@@ -49,7 +114,7 @@ myApp.controller('addController', ['$scope', '$http','$location', function ($sco
         });
             $scope.ClassifiedTitle = '';
         $scope.ClassifiedDescription = '';
-     $scope.CategoryImage = 'ss';
+     $scope.CategoryImage = '';
    $scope.uploadedFile = function(element) {
  $scope.$apply(function($scope) {
    $scope.files = element.files;        
@@ -58,7 +123,14 @@ myApp.controller('addController', ['$scope', '$http','$location', function ($sco
 }
     $scope.CategoryID=0;    
      $scope.addRule = function () {
-        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { ClassifiedTitle: $scope.ClassifiedTitle,ClassifiedDescription: $scope.ClassifiedDescription,CategoryID:$scope.CategoryID,CategoryImage:$scope.CategoryImage})
+        
+         if(angular.isUndefined($scope.IsActive))      
+             {
+                 $scope.IsActive=false;
+                 
+                  alert($scope.IsActive);
+             }
+        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { ClassifiedTitle: $scope.ClassifiedTitle,ClassifiedDescription: $scope.ClassifiedDescription,CategoryID:$scope.CategoryID,CategoryImage:$scope.CategoryImage,IsActive:$scope.IsActive})
             .success(function (result) {
                   if ($http.pendingRequests.length > 0) {                   
                 } else {                    
@@ -87,6 +159,7 @@ myApp.controller('addController', ['$scope', '$http','$location', function ($sco
                     console.log(e.target.result);
          document.getElementById("img").value=e.target.result;
                    $scope.CategoryImage=e.target.result;
+                     $scope.$digest();
                 }; 
             })(img);
             reader.readAsDataURL(file);
