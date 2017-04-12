@@ -68,8 +68,8 @@ myApp.controller('editController', ['$scope', '$log', '$routeParams', '$http','$
                   alert($scope.IsActive);
              }        
         
-          console.log($scope.classified[0].ClassifiedID);
          
+         console.log($scope.classified);
         $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { id: $scope.classified[0].ClassifiedID,ClassifiedTitle: $scope.classified[0].ClassifiedTitle,ClassifiedDescription: $scope.classified[0].ClassifiedDescription,CategoryID:$scope.classified[0].CategoryID,ClassifiedImage:$scope.classified[0].ClassfiedImage,IsActive:$scope.classified[0].IsActive})
             .success(function (result) {
                   if ($http.pendingRequests.length > 0) {                   
@@ -81,6 +81,19 @@ myApp.controller('editController', ['$scope', '$log', '$routeParams', '$http','$
 
             })
     };   
+    
+         $scope.deleteRule = function () {
+        $http.post('http://127.0.0.1/VariousClassifiedWeb/Api/Delete', { id: $scope.classified[0].ClassifiedID})
+            .success(function (result) {
+                  if ($http.pendingRequests.length > 0) {                   
+                } else {                    
+                      var landingUrl = '/';  
+                 $location.url(landingUrl);
+                }
+            
+
+            })
+    }; 
     
     $scope.showMyImage = function (fileInput) {
         var files = fileInput.files;
@@ -95,9 +108,10 @@ myApp.controller('editController', ['$scope', '$log', '$routeParams', '$http','$
             var reader = new FileReader();
             reader.onload = (function(aImg) { 
                 return function(e) {                                        
-                    aImg.src = e.target.result;                   
-         document.getElementById("img").value=e.target.result;
-                   $scope.CategoryImage=e.target.result;
+                    aImg.src = e.target.result;                     
+         document.getElementById("img").value=e.target.result;                  
+                   $scope.classified[0].ClassfiedImage=e.target.result;
+                     console.log($scope.classified[0].ClassfiedImage);
                      $scope.$digest();
                 }; 
             })(img);
@@ -130,7 +144,7 @@ myApp.controller('addController', ['$scope', '$http','$location', function ($sco
                  
                   alert($scope.IsActive);
              }
-        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { ClassifiedTitle: $scope.ClassifiedTitle,ClassifiedDescription: $scope.ClassifiedDescription,CategoryID:$scope.CategoryID,CategoryImage:$scope.CategoryImage,IsActive:$scope.IsActive})
+        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { ClassifiedTitle: $scope.ClassifiedTitle,ClassifiedDescription: $scope.ClassifiedDescription,CategoryID:$scope.CategoryID,ClassifiedImage:$scope.ClassfiedImage,IsActive:$scope.IsActive})
             .success(function (result) {
                   if ($http.pendingRequests.length > 0) {                   
                 } else {                    
