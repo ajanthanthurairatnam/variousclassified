@@ -13,7 +13,9 @@
   </select>
 <input type="checkbox" ng-model="item.IsActive"  ng-model-options="{allowInvalid: true}"   />
 <input type="file"  accept="image/*" id="imgInp" onchange="angular.element(this).scope().showMyImage(this)" />
+           <a href="#/viewclassfied/{{item.ClassifiedID}}">    
 <img id="img" ng-src="{{item.ClassfiedImage}}" alt="your image"  />
+         </a>
 <input type="text" ng-model="item.ClassfiedImage"  />
 <a class="btn btn-default" ng-click="addRule()">Add</a>
          <a class="btn btn-default" ng-click="deleteRule()">Delete</a>

@@ -1,0 +1,16 @@
+ <img id="img" ng-src="{{classified[0].CategoryImage}}" alt="your image"/>
+    <br />
+<br />
+<div class="row" ng-repeat="item in classified" style="height:300px;">
+    <div class="col-md-3">
+        <a href="#/viewclassfied/{{item.ClassifiedID}}">    
+        <img id="img" ng-src="{{item.ClassfiedImage}}" alt="your image" style="max-height:280px;max-width:280px"/>
+        </a>
+      </div>  
+     <div class="col-md-9">        
+         <h1>{{item.ClassifiedTitle}}</h1>
+          {{item.ClassifiedDescription}}     
+         </div>
+    <br />
+    <hr />
+</div>

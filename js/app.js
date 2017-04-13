@@ -27,7 +27,13 @@ myApp.config(function ($routeProvider) {
         templateUrl: 'pages/editclassified.html',
         controller: 'editController'
     })
-
+    
+    
+       .when('/ClassifiedsByCategory/:num', {
+        templateUrl: 'pages/classifiedsbycategory.html',
+        controller: 'ClassifiedsByCategoryController'
+    })
+ 
 });
 
 myApp.controller('mainController', ['$scope','$location', '$http', function ($scope,$location,  $http) {   
@@ -39,11 +45,21 @@ myApp.controller('mainController', ['$scope','$location', '$http', function ($sc
         });
 }]);
 
+
 myApp.controller('viewController', ['$scope', '$log', '$routeParams', '$http', function($scope, $log, $routeParams,$http) {  
     $http.get('http://127.0.0.1/VariousClassifiedWeb/api', {
     params: { id: $routeParams.num }
 }).success(function (result) {
             $scope.classified = result;            
+        });    
+}]);
+
+myApp.controller('ClassifiedsByCategoryController', ['$scope', '$log', '$routeParams', '$http', function($scope, $log, $routeParams,$http) {  
+    $http.get('http://127.0.0.1/VariousClassifiedWeb/api/ClassifiedsByCategoryID', {
+    params: { id: $routeParams.num }
+}).success(function (result) {
+            $scope.classified = result;    
+        console.log($scope.classified);
         });    
 }]);
 
@@ -169,10 +185,9 @@ myApp.controller('addController', ['$scope', '$http','$location', function ($sco
             var reader = new FileReader();
             reader.onload = (function(aImg) { 
                 return function(e) {                                        
-                    aImg.src = e.target.result;
-                    console.log(e.target.result);
+                    aImg.src = e.target.result;                    
          document.getElementById("img").value=e.target.result;
-                   $scope.CategoryImage=e.target.result;
+                   $scope.ClassfiedImage=e.target.result;
                      $scope.$digest();
                 }; 
             })(img);
