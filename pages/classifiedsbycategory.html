@@ -18,19 +18,22 @@
         </div>
     </div>
 </div>
+<label>Search: <input ng-model="searchText"></label>
 
-    <br />
-<br />
-<div class="row" ng-repeat="item in classified" style="height:300px;">
-    <div class="col-md-3">
-        <a href="#/viewclassfied/{{item.ClassifiedID}}">    
-        <img id="img" ng-src="{{item.ClassfiedImage}}" alt="your image" style="max-height:280px;max-width:280px"/>
-        </a>
-      </div>  
-     <div class="col-md-9">        
-         <h1>{{item.ClassifiedTitle}}</h1>
-          {{item.ClassifiedDescription}}     
+<div class="row" ng-repeat="classified in chunkedData ">
+     <div class="col-md-6 portfolio-item" ng-repeat="item in classified | filter:searchText:strict" ng-minlength="0">
+         <div class="row">
+                    <div class="col-md-2 well">                      
+                <a href="#/viewclassfied/{{item.ClassifiedID}}">    
+                <img id="img" ng-src="{{item.ClassfiedImage}}" alt="your image" class="img-responsive"/>
+                </a>
+              </div>  
+             <div class="col-md-9">        
+                 <h4>{{item.ClassifiedTitle}}</h4>
+                  {{item.ClassifiedDescription}}     
+                </div>
          </div>
-    <br />
-    <hr />
+    </div>
 </div>
+
+

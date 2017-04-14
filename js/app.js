@@ -57,10 +57,10 @@ myApp.controller('viewController', ['$scope', '$log', '$routeParams', '$http', f
 myApp.controller('ClassifiedsByCategoryController', ['$scope', '$log', '$routeParams', '$http', function($scope, $log, $routeParams,$http) {     
     $http.get('http://127.0.0.1/VariousClassifiedWeb/api/ClassifiedsByCategoryID', {
     params: { id: $routeParams.num }
-}).success(function (result) {
-        
+}).success(function (result) {        
             $scope.classified = result;    
-       console.log($scope.classified);
+         $scope.chunkedData = chunk(result, 2);  
+       
         });    
 }]);
 
