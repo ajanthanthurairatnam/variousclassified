@@ -53,13 +53,14 @@ myApp.controller('viewController', ['$scope', '$log', '$routeParams', '$http', f
             $scope.classified = result;            
         });    
 }]);
-
-myApp.controller('ClassifiedsByCategoryController', ['$scope', '$log', '$routeParams', '$http', function($scope, $log, $routeParams,$http) {  
+ 
+myApp.controller('ClassifiedsByCategoryController', ['$scope', '$log', '$routeParams', '$http', function($scope, $log, $routeParams,$http) {     
     $http.get('http://127.0.0.1/VariousClassifiedWeb/api/ClassifiedsByCategoryID', {
     params: { id: $routeParams.num }
 }).success(function (result) {
+        
             $scope.classified = result;    
-        console.log($scope.classified);
+       
         });    
 }]);
 
@@ -71,22 +72,16 @@ myApp.controller('editController', ['$scope', '$log', '$routeParams', '$http','$
         });
     $http.get('http://127.0.0.1/VariousClassifiedWeb/api', {
     params: { id: $routeParams.num }
-}).success(function (result) {
-            $scope.classified = result;            
+}).success(function (result) {        
+            $scope.classified = result;          
         });    
         $scope.CategoryID=0;    
-     $scope.addRule = function () {
-        
+     $scope.addRule = function () {        
          if(angular.isUndefined($scope.IsActive))      
              {
                  $scope.IsActive=false;
-                 
-                  alert($scope.IsActive);
-             }        
-        
-         
-         console.log($scope.classified);
-        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { id: $scope.classified[0].ClassifiedID,ClassifiedTitle: $scope.classified[0].ClassifiedTitle,ClassifiedDescription: $scope.classified[0].ClassifiedDescription,CategoryID:$scope.classified[0].CategoryID,ClassifiedImage:$scope.classified[0].ClassfiedImage,IsActive:$scope.classified[0].IsActive})
+             }    
+        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { id: $scope.classified[0].ClassifiedID,ClassifiedTitle: $scope.classified[0].ClassifiedTitle,ClassifiedDescription: $scope.classified[0].ClassifiedDescription,CategoryID:$scope.classified[0].CategoryID,ClassifiedImage:$scope.classified[0].ClassfiedImage,ContactDetails:$scope.classified[0].ContactDetails,Notes:$scope.classified[0].Notes,IsActive:$scope.classified[0].IsActive})
             .success(function (result) {
                   if ($http.pendingRequests.length > 0) {                   
                 } else {                    
@@ -126,8 +121,7 @@ myApp.controller('editController', ['$scope', '$log', '$routeParams', '$http','$
                 return function(e) {                                        
                     aImg.src = e.target.result;                     
          document.getElementById("img").value=e.target.result;                  
-                   $scope.classified[0].ClassfiedImage=e.target.result;
-                     console.log($scope.classified[0].ClassfiedImage);
+                   $scope.classified[0].ClassfiedImage=e.target.result;                     
                      $scope.$digest();
                 }; 
             })(img);
@@ -142,13 +136,16 @@ myApp.controller('addController', ['$scope', '$http','$location', function ($sco
         .success(function (result) {
             $scope.Categories = result;           
         });
+     $http.get('http://127.0.0.1/VariousClassifiedWeb/api/GetReferenceNo')
+        .success(function (result) {        
+            $scope.Reference = result; 
+        });
             $scope.ClassifiedTitle = '';
         $scope.ClassifiedDescription = '';
      $scope.CategoryImage = '';
    $scope.uploadedFile = function(element) {
  $scope.$apply(function($scope) {
-   $scope.files = element.files;        
-     console.log($scope.files);
+   $scope.files = element.files;   
  });
 }
     $scope.CategoryID=0;    
@@ -156,11 +153,10 @@ myApp.controller('addController', ['$scope', '$http','$location', function ($sco
         
          if(angular.isUndefined($scope.IsActive))      
              {
-                 $scope.IsActive=false;
-                 
-                  alert($scope.IsActive);
-             }
-        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { ClassifiedTitle: $scope.ClassifiedTitle,ClassifiedDescription: $scope.ClassifiedDescription,CategoryID:$scope.CategoryID,ClassifiedImage:$scope.ClassfiedImage,IsActive:$scope.IsActive})
+                 $scope.IsActive=false;                 
+                  
+             }         
+        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { ClassifiedTitle: $scope.ClassifiedTitle,ClassifiedDescription: $scope.ClassifiedDescription,CategoryID:$scope.CategoryID,ClassifiedImage:$scope.ClassfiedImage,IsActive:$scope.IsActive,ContactDetails:$scope.ContactDetails,Notes:$scope.Notes,RefNo:$scope.Reference[0].NextRefNo})
             .success(function (result) {
                   if ($http.pendingRequests.length > 0) {                   
                 } else {                    
