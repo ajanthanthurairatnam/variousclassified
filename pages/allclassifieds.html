@@ -1,0 +1,85 @@
+<div  class="row">
+  <div class="col-md-4">
+      <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: 'Miscellaneous' }" >   
+      <div class="col-md-3">
+        {{item.CategoryTitle}}
+          </div>
+           <div class="col-md-9">
+               {{item.ClassifiedDescription}}
+         </div>
+            </div>
+ <a href="#/ClassifiedsByCategory/1">    
+                   ClassifiedsByCategory
+                </a>
+    </div>
+    <div class="col-md-4">
+              <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: 'Property' }" >   
+      <div class="col-md-3">
+        {{item.CategoryTitle}}
+          </div>
+           <div class="col-md-9">
+               {{item.ClassifiedDescription}}
+         </div>
+            </div>
+ <a href="#/ClassifiedsByCategory/2">    
+                   ClassifiedsByCategory
+                </a>
+    </div>
+    <div class="col-md-4">
+                      <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: 'Jobs' }" >   
+      <div class="col-md-3">
+        {{item.CategoryTitle}}
+          </div>
+           <div class="col-md-9">
+               {{item.ClassifiedDescription}}
+         </div>
+            </div>
+ <a href="#/ClassifiedsByCategory/3">    
+                   ClassifiedsByCategory
+                </a>
+    </div>
+</div> 
+<div  class="row">
+  <div class="col-md-4">
+      <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: 'Beauty' }" >   
+      <div class="col-md-3">
+        {{item.CategoryTitle}}
+          </div>
+           <div class="col-md-9">
+               {{item.ClassifiedDescription}}
+         </div>
+            </div>
+ <a href="#/ClassifiedsByCategory/4">    
+                   ClassifiedsByCategory
+                </a>
+    </div>
+    <div class="col-md-4">
+              <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: 'Services' }" >   
+      <div class="col-md-3">
+        {{item.CategoryTitle}}
+          </div>
+           <div class="col-md-9">
+               {{item.ClassifiedDescription}}
+         </div>
+            </div>
+ <a href="#/ClassifiedsByCategory/5">    
+                   ClassifiedsByCategory
+                </a>
+    </div>
+    <div class="col-md-4">
+                      <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: 'Other' }" >   
+      <div class="col-md-3">
+        {{item.CategoryTitle}}
+          </div>
+           <div class="col-md-9">
+               {{item.ClassifiedDescription}}
+         </div>
+            </div>
+ <a href="#/ClassifiedsByCategory/6">    
+                   ClassifiedsByCategory
+                </a>
+    </div>
+</div> 
+
+         
+   

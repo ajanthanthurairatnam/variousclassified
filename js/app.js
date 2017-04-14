@@ -7,7 +7,12 @@ myApp.config(function ($routeProvider) {
     .when('/', {
         templateUrl: 'pages/main.html',
         controller: 'mainController'
-    })  
+    }) 
+    
+     .when('/allclassifieds', {
+        templateUrl: 'pages/allclassifieds.html',
+        controller: 'allclassifiedsController'
+    }) 
      .when('/viewclassfied', {
         templateUrl: 'pages/viewclassfied.html',
         controller: 'viewclassfied'
@@ -43,6 +48,14 @@ myApp.controller('mainController', ['$scope','$location', '$http', function ($sc
             $scope.classifieds = result;
             $scope.chunkedData = chunk(result, 4);
         });
+}]);
+
+
+myApp.controller('allclassifiedsController', ['$scope','$location', '$http', function ($scope,$location,  $http) {       
+  $http.get('http://127.0.0.1/VariousClassifiedWeb/api/AllClassifiedsGroupByCategoryID')
+        .success(function (result) {
+            $scope.classifieds = result;         
+        });    
 }]);
 
 
