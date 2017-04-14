@@ -60,7 +60,7 @@ myApp.controller('ClassifiedsByCategoryController', ['$scope', '$log', '$routePa
 }).success(function (result) {
         
             $scope.classified = result;    
-       
+       console.log($scope.classified);
         });    
 }]);
 
