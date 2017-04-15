@@ -1,0 +1,8 @@
+.categoryProperty{
+min-height: 250px;
+max-height:250px; 
+overflow:hidden;
+    background-color: #FAEBD7;
+     border-radius: 10px;
+    border: 1px solid #7FFFD4;
+}

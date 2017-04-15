@@ -51,11 +51,22 @@ myApp.controller('mainController', ['$scope','$location', '$http', function ($sc
 }]);
 
 
-myApp.controller('allclassifiedsController', ['$scope','$location', '$http', function ($scope,$location,  $http) {       
+myApp.controller('allclassifiedsController', ['$scope','$location', '$http', function ($scope,$location,  $http) {    
+    $http.get('http://127.0.0.1/VariousClassifiedWeb/api/Categories')
+        .success(function (result) {
+            $scope.Categories = result;           
+        });
   $http.get('http://127.0.0.1/VariousClassifiedWeb/api/AllClassifiedsGroupByCategoryID')
         .success(function (result) {
-            $scope.classifieds = result;         
-        });    
+            $scope.classifieds = result;  
+      $scope.chunkedData = chunk(result, 4);
+        }); 
+    $scope.filterMiscellaneousPropertyJobs = function(category){
+    return category.CategoryTitle == 'Miscellaneous' || category.CategoryTitle == 'Property'|| category.CategoryTitle == 'Jobs';
+    };
+     $scope.filterBeautyServicesOther = function(category){
+    return category.CategoryTitle == 'Beauty' || category.CategoryTitle == 'Services'|| category.CategoryTitle == 'Other';
+    };
 }]);
 
 
@@ -74,7 +85,7 @@ myApp.controller('ClassifiedsByCategoryController', ['$scope', '$log', '$routePa
             $scope.classified = result;    
          $scope.chunkedData = chunk(result, 2);  
        
-        });    
+        });            
 }]);
 
 

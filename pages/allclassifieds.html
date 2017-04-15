@@ -1,85 +1,56 @@
-<div  class="row">
-  <div class="col-md-4">
-      <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: 'Miscellaneous' }" >   
+ <div class="row">
+    <div class="col-md-4"  ng-repeat="category in Categories | filter:filterMiscellaneousPropertyJobs">        
+        <div class="categoryProperty">
+            <div class="row">
+             <div class="col-md-4">
+                  <img id="img" class="img-thumbnail"  ng-src="{{category.CategoryImage}}" alt="your image" width="30" height="30"/>
+        </div>
+        <div class="col-md-8">
+            {{category.CategoryTitle}} 
+        </div>
+            </div>
+           
+        <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: category.CategoryTitle }" >   
       <div class="col-md-3">
         {{item.CategoryTitle}}
           </div>
            <div class="col-md-9">
-               {{item.ClassifiedDescription}}
+               {{item.ClassifiedDescription.length >= 30 ? (item.ClassifiedDescription.substr(0,30)+'......') : item.ClassifiedDescription}}
          </div>
             </div>
- <a href="#/ClassifiedsByCategory/1">    
-                   ClassifiedsByCategory
+            </div>
+ <a href="#/ClassifiedsByCategory/{{category.ID}}">    
+                   Find more classified for  {{category.CategoryTitle}} ...
                 </a>
     </div>
-    <div class="col-md-4">
-              <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: 'Property' }" >   
+</div>
+ <div class="row">
+    <div class="col-md-4" ng-repeat="category in Categories | filter:filterBeautyServicesOther">         
+         <div class="categoryProperty">
+            <div class="row">
+             <div class="col-md-4">
+                 <img id="img" class="img-thumbnail"  ng-src="{{category.CategoryImage}}" alt="your image" width="30" height="30"/>
+        </div>
+        <div class="col-md-8">
+            {{category.CategoryTitle}} 
+        </div>
+            </div>
+         <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: category.CategoryTitle }" >   
       <div class="col-md-3">
         {{item.CategoryTitle}}
           </div>
-           <div class="col-md-9">
-               {{item.ClassifiedDescription}}
+           <div class="col-md-9">               
+               
+               {{item.ClassifiedDescription.length >= 30 ? (item.ClassifiedDescription.substr(0,30)+'......') : item.ClassifiedDescription}}
          </div>
             </div>
- <a href="#/ClassifiedsByCategory/2">    
-                   ClassifiedsByCategory
+        </div>
+ <a href="#/ClassifiedsByCategory/{{category.ID}}">    
+                 Find more classified for  {{category.CategoryTitle}} ...
                 </a>
     </div>
-    <div class="col-md-4">
-                      <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: 'Jobs' }" >   
-      <div class="col-md-3">
-        {{item.CategoryTitle}}
-          </div>
-           <div class="col-md-9">
-               {{item.ClassifiedDescription}}
-         </div>
-            </div>
- <a href="#/ClassifiedsByCategory/3">    
-                   ClassifiedsByCategory
-                </a>
-    </div>
-</div> 
-<div  class="row">
-  <div class="col-md-4">
-      <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: 'Beauty' }" >   
-      <div class="col-md-3">
-        {{item.CategoryTitle}}
-          </div>
-           <div class="col-md-9">
-               {{item.ClassifiedDescription}}
-         </div>
-            </div>
- <a href="#/ClassifiedsByCategory/4">    
-                   ClassifiedsByCategory
-                </a>
-    </div>
-    <div class="col-md-4">
-              <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: 'Services' }" >   
-      <div class="col-md-3">
-        {{item.CategoryTitle}}
-          </div>
-           <div class="col-md-9">
-               {{item.ClassifiedDescription}}
-         </div>
-            </div>
- <a href="#/ClassifiedsByCategory/5">    
-                   ClassifiedsByCategory
-                </a>
-    </div>
-    <div class="col-md-4">
-                      <div  class="row" ng-repeat="item in classifieds | filter:{ CategoryTitle: 'Other' }" >   
-      <div class="col-md-3">
-        {{item.CategoryTitle}}
-          </div>
-           <div class="col-md-9">
-               {{item.ClassifiedDescription}}
-         </div>
-            </div>
- <a href="#/ClassifiedsByCategory/6">    
-                   ClassifiedsByCategory
-                </a>
-    </div>
-</div> 
+</div>
+
 
          
    
