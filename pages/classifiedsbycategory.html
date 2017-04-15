@@ -18,8 +18,12 @@
         </div>
     </div>
 </div>
-<label>Search: <input ng-model="searchText"></label>
-
+<div class="row">
+    <div class="col-md-12">       
+        <input ng-model="searchText" class="form-control" placeholder="Search">
+    </div>
+</div>
+<br />
 <div class="row" ng-repeat="classified in chunkedData ">
      <div class="col-md-6 portfolio-item" ng-repeat="item in classified | filter:searchText:strict" ng-minlength="0">
          <div class="row">
