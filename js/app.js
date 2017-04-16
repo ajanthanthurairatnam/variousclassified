@@ -9,6 +9,22 @@ myApp.config(function ($routeProvider) {
         controller: 'mainController'
     }) 
     
+
+    .when('/userlist', {
+        templateUrl: 'pages/userlist.html',
+        controller: 'userlistController'
+    }) 
+    
+        .when('/adduser', {
+        templateUrl: 'pages/edituser.html',
+        controller: 'edituserController'
+    })   
+    
+     .when('/edituser/:num', {
+        templateUrl: 'pages/edituser.html',
+        controller: 'edituserController'
+    })
+    
      .when('/', {
         templateUrl: 'pages/allclassifieds.html',
         controller: 'allclassifiedsController'
@@ -41,13 +57,45 @@ myApp.config(function ($routeProvider) {
  
 });
 
-myApp.controller('mainController', ['$scope','$location', '$http', function ($scope,$location,  $http) {   
-    
+myApp.controller('mainController', ['$scope','$location', '$http', function ($scope,$location,  $http) { 
   $http.get('http://127.0.0.1/VariousClassifiedWeb/api')
         .success(function (result) {
             $scope.classifieds = result;
             $scope.chunkedData = chunk(result, 4);
         });
+}]);
+
+
+
+myApp.controller('userlistController', ['$scope','$location', '$http', function ($scope,$location,  $http) { 
+  $http.get('http://127.0.0.1/VariousClassifiedWeb/api/users')
+        .success(function (result) {   
+            $scope.userlist = result;          
+        });
+}]);
+
+
+myApp.controller('edituserController', ['$scope','$location','$routeParams', '$http', function ($scope,$location,$routeParams,  $http) { 
+        $http.get('http://127.0.0.1/VariousClassifiedWeb/api/users', {
+    params: { id: $routeParams.num }
+}).success(function (result) {          
+            $scope.user = result[0];   
+            
+        }); 
+       $scope.SaveUser = function () {        
+         if(angular.isUndefined($scope.IsActive))      
+             {
+                 $scope.IsActive=false;
+             }    
+  $http.post('http://127.0.0.1/VariousClassifiedWeb/api/SaveUser', { id:$scope.ID, UserName: $scope.UserName,Password: $scope.Password,EMail:$scope.EMail,IsActive:$scope.IsActive })
+    .success(function (result) {
+                  if ($http.pendingRequests.length > 0) {                   
+                } else {                    
+                      var landingUrl = '/userlist';  
+                 $location.url(landingUrl);
+                }
+            })
+    };
 }]);
 
 
