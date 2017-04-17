@@ -83,11 +83,12 @@ myApp.controller('edituserController', ['$scope','$location','$routeParams', '$h
             
         }); 
        $scope.SaveUser = function () {        
-         if(angular.isUndefined($scope.IsActive))      
+         if(angular.isUndefined($scope.user.IsActive))      
              {
-                 $scope.IsActive=false;
+                 $scope.user.IsActive=false;
              }    
-  $http.post('http://127.0.0.1/VariousClassifiedWeb/api/SaveUser', { id:$scope.ID, UserName: $scope.UserName,Password: $scope.Password,EMail:$scope.EMail,IsActive:$scope.IsActive })
+           console.log($scope.user.IsActive);
+  $http.post('http://127.0.0.1/VariousClassifiedWeb/api/SaveUser', { id:$scope.user.ID, UserName: $scope.user.UserName,Password: $scope.user.Password,EMail:$scope.user.EMail,IsActive:$scope.user.IsActive })
     .success(function (result) {
                   if ($http.pendingRequests.length > 0) {                   
                 } else {                    
@@ -96,6 +97,21 @@ myApp.controller('edituserController', ['$scope','$location','$routeParams', '$h
                 }
             })
     };
+    
+             $scope.deleteUser = function () {
+        $http.post('http://127.0.0.1/VariousClassifiedWeb/Api/DeleteUser', { id:$scope.user.ID})
+            .success(function (result) {
+                  if ($http.pendingRequests.length > 0) {                   
+                } else {                    
+                      var landingUrl = '/userlist';  
+                 $location.url(landingUrl);
+                }
+            
+
+            })
+    };
+    
+    
 }]);
 
 

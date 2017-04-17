@@ -24,11 +24,13 @@
 <div class="row">
     <div class="col-md-3">Is Active</div>
     <div class="col-md-9">
-         <input type="checkbox" ng-model="user.IsActive" ng-model-options="{allowInvalid: true}"   />
+         <input type="checkbox" ng-model="user.IsActive"   />
     </div>   
 </div>
 <div class="row">
     <div class="col-md-3"></div>
      <div class="col-md-9">
-<a class="btn btn-default" ng-click="SaveUser()">Save</a></div>
+<a class="btn btn-default" ng-click="SaveUser()">Save</a>
+     <a class="btn btn-default" ng-click="deleteUser()">Delete</a>
+    </div>
 </div>
