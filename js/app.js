@@ -29,6 +29,11 @@ myApp.config(function ($routeProvider) {
         templateUrl: 'pages/allclassifieds.html',
         controller: 'allclassifiedsController'
     }) 
+    
+        .when('/login', {
+        templateUrl: 'pages/login.html',
+        controller: 'login'
+    }) 
      .when('/viewclassfied', {
         templateUrl: 'pages/viewclassfied.html',
         controller: 'viewclassfied'
@@ -73,6 +78,27 @@ myApp.controller('userlistController', ['$scope','$location', '$http', function 
             $scope.userlist = result;          
         });
 }]);
+
+myApp.controller('login', ['$scope','$location', '$rootScope','$http', function ($scope,$location, $rootScope, $http) {     
+           $scope.login = function () {              
+                 $http.post('http://127.0.0.1/VariousClassifiedWeb/api/login', { UserName: $scope.UserName,Password: $scope.Password })
+                    .success(function (result) {                    
+                                  if ($http.pendingRequests.length > 0) {                   
+                                } else {       
+                                   if(result.status=='success') 
+                                       {
+                                           $rootScope.username=$scope.UserName;
+                                        var landingUrl = '/';  
+                                 $location.url(landingUrl);   
+                                       }                                    
+                                
+                                }
+                            })
+               
+                    
+    }; 
+}]);
+
 
 
 myApp.controller('edituserController', ['$scope','$location','$routeParams', '$http', function ($scope,$location,$routeParams,  $http) { 
