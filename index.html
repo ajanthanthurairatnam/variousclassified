@@ -46,6 +46,15 @@
       <li><a href="#">Page 1</a></li>
       <li><a href="#">Page 2</a></li>
     </ul>   
+       <ul class="nav navbar-nav navbar-right">
+           <li><a ng-if="username">Welcome {{username}} </a></li> 
+            <li><a href="index.html#/login" ng-if="!username">Login</a></li>
+            <li><a href="index.html#/adduser" ng-if="username">Create account</a></li>
+            <li><a href="index.html#/userlist" ng-if="username">User list</a></li>             
+        <li  ng-if="username"> <a href="index.html#/logout" >Logout</a></li>
+      
+    </ul>
+      
   </div>
 </nav>
 
@@ -60,8 +69,6 @@
                 </h1>
             </div>
         </div>
-
-<h1>Welcome {{username}}</h1>
      <div ng-view></div>
         
        

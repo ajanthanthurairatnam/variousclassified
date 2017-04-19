@@ -20,6 +20,10 @@ myApp.config(function ($routeProvider) {
         controller: 'edituserController'
     })   
     
+     .when('/logout', {       
+        controller: 'logoutController'
+    })
+    
      .when('/edituser/:num', {
         templateUrl: 'pages/edituser.html',
         controller: 'edituserController'
@@ -77,6 +81,16 @@ myApp.controller('userlistController', ['$scope','$location', '$http', function 
         .success(function (result) {   
             $scope.userlist = result;          
         });
+}]);
+
+
+
+
+
+myApp.controller('logoutController', ['$scope','$location','$rootScope', '$http', function ($scope,$location, $rootScope, $http) { 
+    $rootScope.username=undefined;
+    var landingUrl = '/';  
+                                 $location.url(landingUrl);  
 }]);
 
 myApp.controller('login', ['$scope','$location', '$rootScope','$http', function ($scope,$location, $rootScope, $http) {     
