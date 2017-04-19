@@ -102,12 +102,14 @@ myApp.controller('login', ['$scope','$location', '$rootScope','$http', function 
 
 
 myApp.controller('edituserController', ['$scope','$location','$routeParams', '$http', function ($scope,$location,$routeParams,  $http) { 
-        $http.get('http://127.0.0.1/VariousClassifiedWeb/api/users', {
+    if($routeParams.num){
+                $http.get('http://127.0.0.1/VariousClassifiedWeb/api/users', {
     params: { id: $routeParams.num }
 }).success(function (result) {          
             $scope.user = result[0];   
             
         }); 
+    } 
        $scope.SaveUser = function () {        
          if(angular.isUndefined($scope.user.IsActive))      
              {
