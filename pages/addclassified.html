@@ -48,6 +48,8 @@
     <div class="col-md-3">Is Active</div>
     <div class="col-md-9">
          <input type="checkbox" ng-model="IsActive" ng-model-options="{allowInvalid: true}"   />
+               <input type="text" class="datepic" ng-model="FromDate">
+        <input type="text" class="datepic" ng-model="ToDate">
     </div>   
 </div>
 <div class="row">
@@ -62,3 +64,8 @@
      <div class="col-md-9">
 <a class="btn btn-default" ng-click="addRule()">Save</a></div>
 </div>
+      <script>
+  $(function() {
+    $(".datepic").datepicker();
+  });
+  </script>

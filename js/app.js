@@ -129,10 +129,12 @@ myApp.controller('edituserController', ['$scope','$location','$routeParams', '$h
                 $http.get('http://127.0.0.1/VariousClassifiedWeb/api/users', {
     params: { id: $routeParams.num }
 }).success(function (result) {          
-            $scope.user = result[0];   
-            
+            $scope.user = result[0];                
         }); 
     } 
+    
+
+            
        $scope.SaveUser = function () {        
          if(angular.isUndefined($scope.user.IsActive))      
              {
@@ -205,6 +207,12 @@ myApp.controller('ClassifiedsByCategoryController', ['$scope', '$log', '$routePa
 
 
 myApp.controller('editController', ['$scope', '$log', '$routeParams', '$http','$location', function($scope, $log, $routeParams,$http,$location) { 
+          $scope.initDatepicer= function () {
+          $(function () {
+            $(".datepic").datepicker();              
+          });
+        }
+    
     $http.get('http://127.0.0.1/VariousClassifiedWeb/api/Categories')
         .success(function (result) {
             $scope.Categories = result;           
@@ -212,7 +220,8 @@ myApp.controller('editController', ['$scope', '$log', '$routeParams', '$http','$
     $http.get('http://127.0.0.1/VariousClassifiedWeb/api', {
     params: { id: $routeParams.num }
 }).success(function (result) {        
-            $scope.classified = result;          
+            $scope.classified = result;   
+        $scope.initDatepicer();                      
         });    
         $scope.CategoryID=0;    
      $scope.addRule = function () {        
@@ -220,7 +229,7 @@ myApp.controller('editController', ['$scope', '$log', '$routeParams', '$http','$
              {
                  $scope.IsActive=false;
              }    
-        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { id: $scope.classified[0].ClassifiedID,ClassifiedTitle: $scope.classified[0].ClassifiedTitle,ClassifiedDescription: $scope.classified[0].ClassifiedDescription,CategoryID:$scope.classified[0].CategoryID,ClassifiedImage:$scope.classified[0].ClassfiedImage,ContactDetails:$scope.classified[0].ContactDetails,Notes:$scope.classified[0].Notes,IsActive:$scope.classified[0].IsActive})
+        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { id: $scope.classified[0].ClassifiedID,ClassifiedTitle: $scope.classified[0].ClassifiedTitle,ClassifiedDescription: $scope.classified[0].ClassifiedDescription,CategoryID:$scope.classified[0].CategoryID,ClassifiedImage:$scope.classified[0].ClassfiedImage,ContactDetails:$scope.classified[0].ContactDetails,Notes:$scope.classified[0].Notes,IsActive:$scope.classified[0].IsActive,FromDate:$scope.classified[0].FromDate,ToDate:$scope.classified[0].ToDate})
             .success(function (result) {
                   if ($http.pendingRequests.length > 0) {                   
                 } else {                    
@@ -295,7 +304,7 @@ myApp.controller('addController', ['$scope', '$http','$location', function ($sco
                  $scope.IsActive=false;                 
                   
              }         
-        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { ClassifiedTitle: $scope.ClassifiedTitle,ClassifiedDescription: $scope.ClassifiedDescription,CategoryID:$scope.CategoryID,ClassifiedImage:$scope.ClassfiedImage,IsActive:$scope.IsActive,ContactDetails:$scope.ContactDetails,Notes:$scope.Notes,RefNo:$scope.Reference[0].NextRefNo})
+        $http.post('http://127.0.0.1/VariousClassifiedWeb/api', { ClassifiedTitle: $scope.ClassifiedTitle,ClassifiedDescription: $scope.ClassifiedDescription,CategoryID:$scope.CategoryID,ClassifiedImage:$scope.ClassfiedImage,IsActive:$scope.IsActive,ContactDetails:$scope.ContactDetails,Notes:$scope.Notes,RefNo:$scope.Reference[0].NextRefNo,FromDate:$scope.FromDate,ToDate:$scope.ToDate})
             .success(function (result) {
                   if ($http.pendingRequests.length > 0) {                   
                 } else {                    
@@ -339,6 +348,6 @@ myApp.controller('addController', ['$scope', '$http','$location', function ($sco
   }
   return newArr;
 }
-
+ 
 
 

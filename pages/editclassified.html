@@ -46,7 +46,9 @@
 <div class="row">
     <div class="col-md-3">Is Active</div>
     <div class="col-md-9">
-        <input type="checkbox" ng-model="item.IsActive"  ng-model-options="{allowInvalid: true}"   />       
+        <input type="checkbox" ng-model="item.IsActive"  ng-model-options="{allowInvalid: true}"   /> 
+           <input type="text" class="datepic" ng-model="item.FromDate" datetime="MM/dd/yyyy">
+        <input type="text" class="datepic" ng-model="item.ToDate" datetime="MM/dd/yyyy">
     </div> 
      
 </div>
@@ -73,3 +75,8 @@
     </div>
 </div>
 </div>
+      <script>
+  $(function() {
+    $(".datepic").datepicker();
+  });
+  </script>
