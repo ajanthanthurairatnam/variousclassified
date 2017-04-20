@@ -21,6 +21,7 @@ myApp.config(function ($routeProvider) {
     })   
     
      .when('/logout', {       
+         templateUrl: 'pages/login.html',
         controller: 'logoutController'
     })
     
@@ -76,19 +77,27 @@ myApp.controller('mainController', ['$scope','$location', '$http', function ($sc
 
 
 
-myApp.controller('userlistController', ['$scope','$location', '$http', function ($scope,$location,  $http) { 
+myApp.controller('userlistController', ['$scope','$location','$rootScope' ,'$http', function ($scope,$location, $rootScope, $http) { 
+    if(angular.isUndefined($rootScope.username))      
+{
+     var landingUrl = '/';  
+                                 $location.url(landingUrl);  
+}
+    else{
   $http.get('http://127.0.0.1/VariousClassifiedWeb/api/users')
         .success(function (result) {   
             $scope.userlist = result;          
         });
+        }
 }]);
 
 
 
 
 
-myApp.controller('logoutController', ['$scope','$location','$rootScope', '$http', function ($scope,$location, $rootScope, $http) { 
-    $rootScope.username=undefined;
+myApp.controller('logoutController', ['$scope','$location','$rootScope', '$http', function ($scope,$location, $rootScope, $http) {
+    
+    delete $rootScope.username;    
     var landingUrl = '/';  
                                  $location.url(landingUrl);  
 }]);
