@@ -10,6 +10,10 @@ myApp.config(function ($routeProvider) {
     }) 
     
 
+     .when('/main/:page', {
+        templateUrl: 'pages/main.html',
+        controller: 'mainController'
+    })
     .when('/userlist', {
         templateUrl: 'pages/userlist.html',
         controller: 'userlistController'
@@ -67,9 +71,21 @@ myApp.config(function ($routeProvider) {
  
 });
 
-myApp.controller('mainController', ['$scope','$location', '$http', function ($scope,$location,  $http) { 
+myApp.controller('mainController', ['$scope','$location','$routeParams', '$http', function ($scope,$location,$routeParams,  $http) { 
   $http.get('http://127.0.0.1/VariousClassifiedWeb/api')
         .success(function (result) {
+            $scope.classifieds = result;
+            $scope.chunkedData = chunk(result, 4);
+        });
+$http.get('http://127.0.0.1/VariousClassifiedWeb/api/pagecount')
+        .success(function (result) {   
+    $scope.pagecount = [];
+    for (var i = 0; i < parseInt(result,10); i++) {
+          $scope.pagecount[i] = i;
+        }  
+    });  
+   
+     $http.post('http://127.0.0.1/VariousClassifiedWeb/api/IndexPost',{ page: $routeParams.page }).success(function (result) {
             $scope.classifieds = result;
             $scope.chunkedData = chunk(result, 4);
         });
