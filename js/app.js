@@ -215,13 +215,14 @@ myApp.controller('editController', ['$scope', '$log', '$routeParams', '$http','$
     
     $http.get('http://127.0.0.1/VariousClassifiedWeb/api/Categories')
         .success(function (result) {
-            $scope.Categories = result;           
+            $scope.Categories = result;  
+        
         });
     $http.get('http://127.0.0.1/VariousClassifiedWeb/api', {
     params: { id: $routeParams.num }
 }).success(function (result) {        
             $scope.classified = result;   
-        $scope.initDatepicer();                      
+        $scope.initDatepicer();       
         });    
         $scope.CategoryID=0;    
      $scope.addRule = function () {        
