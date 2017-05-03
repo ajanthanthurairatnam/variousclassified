@@ -82,11 +82,7 @@ myApp.controller('mainController', ['$scope','$location','$routeParams', '$rootS
         .success(function (result) {   
             $scope.users = result; 
             $scope.UserName=$rootScope.username;
-            $scope.MyDestiny();
-    }); 
-
-   $scope.MyDestiny = function () {         
-      $http.post('http://127.0.0.1/VariousClassifiedWeb/api/pagecount',{ UserName:$scope.UserName})
+                 $http.post('http://127.0.0.1/VariousClassifiedWeb/api/pagecount',{ UserName:$scope.UserName})
         .success(function (result) {   
             $scope.pagecount = [];
             for (var i = 0; i < parseInt(result,10); i++) {
@@ -94,6 +90,24 @@ myApp.controller('mainController', ['$scope','$location','$routeParams', '$rootS
                 }  
             }); 
                 $http.post('http://127.0.0.1/VariousClassifiedWeb/api/RetieveClassfied', { UserName:$scope.UserName,page: $routeParams.page})
+            .success(function (result) {
+                   $scope.classifieds = result;
+                    $scope.chunkedData = chunk(result, 4);
+     
+                })
+    }); 
+
+   $scope.MyDestiny = function () {        
+       var landingUrl = '/main';  
+             $location.url(landingUrl); 
+      $http.post('http://127.0.0.1/VariousClassifiedWeb/api/pagecount',{ UserName:$scope.UserName})
+        .success(function (result) {   
+            $scope.pagecount = [];
+            for (var i = 0; i < parseInt(result,10); i++) {
+                  $scope.pagecount[i] = i;
+                }  
+            }); 
+                $http.post('http://127.0.0.1/VariousClassifiedWeb/api/RetieveClassfied', { UserName:$scope.UserName,page: 1})
             .success(function (result) {
                    $scope.classifieds = result;
                     $scope.chunkedData = chunk(result, 4);
