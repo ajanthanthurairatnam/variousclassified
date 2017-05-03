@@ -5,6 +5,14 @@
  <a href="#/allclassifieds">    
                    all classifieds
                 </a>
+<div class="row">
+    <div class="col-md-3">Category</div>
+    <div class="col-md-9">
+    <select ng-model="UserName" ng-change="MyDestiny()">
+<option ng-repeat="x in users" ng-selected="x.UserName==UserName" value="{{x.UserName}}">{{x.UserName}}</option>
+</select>
+    </div>
+</div>
 <label>Search: <input ng-model="searchText"></label>
 <div class="row" ng-repeat="rows in chunkedData | filter:searchText:strict">
   <div class="col-md-3 portfolio-item" ng-repeat="item in rows" ng-minlength="0">
